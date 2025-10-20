@@ -21,14 +21,46 @@ public class Cofrinho {
         System.out.println(">> Moeda adicionada com sucesso!");
     }
     
-    // Remove uma moeda especifica
-    // Uso o equals que sobrescrevi na classe Moeda
-    public void remover(Moeda moeda) {
-        if (listaMoedas.remove(moeda)) {
-            System.out.println(">> Moeda removida com sucesso!");
-        } else {
-            System.out.println("** Moeda nao encontrada no cofrinho.");
+    // Remove um valor de determinado tipo de moeda
+    // Agora funciona como cofrinho de verdade - pode tirar qualquer valor que tenha
+    public void remover(Moeda moedaRemover) {
+        double valorRemover = moedaRemover.getValor();
+        double saldoDisponivel = 0;
+        
+        // Calculo quanto tem desse tipo de moeda no cofrinho
+        for (Moeda m : listaMoedas) {
+            if (m.getClass() == moedaRemover.getClass()) {
+                saldoDisponivel += m.getValor();
+            }
         }
+        
+        // Verifico se tem saldo suficiente
+        if (saldoDisponivel < valorRemover) {
+            System.out.println("** Saldo insuficiente! Voce tem apenas " + 
+                             moedaRemover.getClass().getSimpleName() + " " + 
+                             String.format("%.2f", saldoDisponivel));
+            return;
+        }
+        
+        // Remove o valor das moedas (vai tirando das maiores ate completar)
+        double valorRestante = valorRemover;
+        
+        for (int i = listaMoedas.size() - 1; i >= 0 && valorRestante > 0; i--) {
+            Moeda m = listaMoedas.get(i);
+            
+            if (m.getClass() == moedaRemover.getClass()) {
+                if (m.getValor() <= valorRestante) {
+                    valorRestante -= m.getValor();
+                    listaMoedas.remove(i);
+                } else {
+                    // Se a moeda e maior que o valor restante, diminuo o valor dela
+                    m.valor -= valorRestante;
+                    valorRestante = 0;
+                }
+            }
+        }
+        
+        System.out.println(">> Valor removido com sucesso!");
     }
     
     // Lista todas as moedas que tem no cofrinho

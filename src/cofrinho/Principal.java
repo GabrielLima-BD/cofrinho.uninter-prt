@@ -1,4 +1,4 @@
-﻿package cofrinho;
+package cofrinho;
 
 import java.util.Scanner;
 

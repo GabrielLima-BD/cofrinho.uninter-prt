@@ -27,11 +27,13 @@ public abstract class Moeda {
     
     // Fiz o equals pra conseguir comparar moedas
     // Precisa disso pro metodo remover funcionar direito
+    // Comparo o tipo (getClass) e o valor
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Moeda moeda = (Moeda) obj;
-        return Double.compare(moeda.valor, valor) == 0;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false; // Tem que ser o mesmo tipo (Real, Dolar, Euro)
+        Moeda outra = (Moeda) obj;
+        return Double.compare(outra.valor, valor) == 0;
     }
 }
