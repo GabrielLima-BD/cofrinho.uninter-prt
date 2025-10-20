@@ -8,7 +8,7 @@ public class Cofrinho {
     
     // Usei ArrayList porque facilita adicionar e remover
     // E posso guardar qualquer tipo de moeda (polimorfismo)
-    private ArrayList<Moeda> listaMoedas;
+    private ArrayList<Moeda> listaMoedas; // lista onde as moedas ficam guardadas
     
     // Construtor - cria o ArrayList vazio
     public Cofrinho() {
@@ -24,8 +24,8 @@ public class Cofrinho {
     // Remove um valor de determinado tipo de moeda
     // Agora funciona como cofrinho de verdade - pode tirar qualquer valor que tenha
     public void remover(Moeda moedaRemover) {
-        double valorRemover = moedaRemover.getValor();
-        double saldoDisponivel = 0;
+        double valorRemover = moedaRemover.getValor(); // quanto o usuario quer tirar
+        double saldoDisponivel = 0; // quanto existe desse tipo de moeda
         
         // Calculo quanto tem desse tipo de moeda no cofrinho
         for (Moeda m : listaMoedas) {
@@ -43,7 +43,7 @@ public class Cofrinho {
         }
         
         // Remove o valor das moedas (vai tirando das maiores ate completar)
-        double valorRestante = valorRemover;
+    double valorRestante = valorRemover; // vai diminuindo ate zerar
         
         for (int i = listaMoedas.size() - 1; i >= 0 && valorRestante > 0; i--) {
             Moeda m = listaMoedas.get(i);
@@ -53,7 +53,7 @@ public class Cofrinho {
                     valorRestante -= m.getValor();
                     listaMoedas.remove(i);
                 } else {
-                    // Se a moeda e maior que o valor restante, diminuo o valor dela
+                    // Se a moeda e maior que o valor restante, diminui o valor dela
                     m.valor -= valorRestante;
                     valorRestante = 0;
                 }

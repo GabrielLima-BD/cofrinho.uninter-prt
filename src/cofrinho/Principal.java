@@ -2,24 +2,24 @@ package cofrinho;
 
 import java.util.Scanner;
 
-// Classe principal com o menu do sistema
+// Programa principal: mostra o menu e conversa com o usuario pelo console
 public class Principal {
     
     public static void main(String[] args) {
         
-        // Crio o Scanner pra ler o que o usuario digita
-        Scanner scanner = new Scanner(System.in);
+        // Leitor para capturar o que o usuario digita
+        Scanner entrada = new Scanner(System.in);
         
-        // Crio o cofrinho onde vou guardar as moedas
+        // Onde vamos guardar as moedas
         Cofrinho cofrinho = new Cofrinho();
         
-        // Variavel pra controlar o loop do menu
+        // Controla o loop do menu
         int opcao = 0;
         
-        // Loop do menu
+        // Loop principal do programa (sai quando opcao = 5)
         while (opcao != 5) {
             
-            // Mostro o menu
+            // Menu simples
             System.out.println("\n========================================");
             System.out.println("      COFRINHO DE MOEDAS");
             System.out.println("========================================");
@@ -30,59 +30,52 @@ public class Principal {
             System.out.println("5 - Sair");
             System.out.print("\nEscolha uma opcao: ");
             
-            // Leio a opcao escolhida
-            opcao = scanner.nextInt();
+            // Le a opcao do usuario (somente numero inteiro)
+            opcao = entrada.nextInt();
             
-            // Processo a opcao
+            // Faz o que o usuario escolheu
             switch (opcao) {
-                
                 case 1: // Adicionar moeda
-                    adicionarMoeda(scanner, cofrinho);
+                    adicionarMoeda(entrada, cofrinho);
                     break;
-                    
                 case 2: // Remover moeda
-                    removerMoeda(scanner, cofrinho);
+                    removerMoeda(entrada, cofrinho);
                     break;
-                    
                 case 3: // Listar moedas
                     cofrinho.listagemMoedas();
                     break;
-                    
-                case 4: // Calcular total
-                    double total = cofrinho.totalConvertido();
-                    System.out.println("\n** Total no cofrinho: R$ " + String.format("%.2f", total));
+                case 4: // Calcular total em reais
+                    double totalEmReais = cofrinho.totalConvertido();
+                    System.out.println("\n** Total no cofrinho: R$ " + String.format("%.2f", totalEmReais));
                     break;
-                    
                 case 5: // Sair
                     System.out.println("\n** Encerrando o sistema. Ate logo!");
                     break;
-                    
                 default:
                     System.out.println("\n** Opcao invalida! Tente novamente.");
             }
         }
         
-        // Fecho o scanner
-        scanner.close();
+        // Fecha o leitor
+        entrada.close();
     }
     
-    // Metodo pra adicionar uma moeda
-    private static void adicionarMoeda(Scanner scanner, Cofrinho cofrinho) {
+    // Adiciona uma nova moeda no cofrinho
+    private static void adicionarMoeda(Scanner entrada, Cofrinho cofrinho) {
         System.out.println("\n--- Adicionar Moeda ---");
         System.out.println("1 - Real (BRL)");
         System.out.println("2 - Dolar (USD)");
         System.out.println("3 - Euro (EUR)");
         System.out.print("Escolha o tipo de moeda: ");
         
-        int tipoMoeda = scanner.nextInt();
+        int tipo = entrada.nextInt();
         
         System.out.print("Digite o valor: ");
-        double valor = scanner.nextDouble();
+        double valor = entrada.nextDouble();
         
-        // Crio a moeda de acordo com o tipo escolhido
+        // Cria a moeda de acordo com o tipo selecionado
         Moeda moeda = null;
-        
-        switch (tipoMoeda) {
+        switch (tipo) {
             case 1:
                 moeda = new Real(valor);
                 break;
@@ -97,27 +90,26 @@ public class Principal {
                 return;
         }
         
-        // Adiciono a moeda no cofrinho
+        // Adiciona a moeda criada
         cofrinho.adicionar(moeda);
     }
     
-    // Metodo pra remover uma moeda
-    private static void removerMoeda(Scanner scanner, Cofrinho cofrinho) {
+    // Remove um valor de um tipo de moeda (ex.: tirar 5 USD)
+    private static void removerMoeda(Scanner entrada, Cofrinho cofrinho) {
         System.out.println("\n--- Remover Moeda ---");
         System.out.println("1 - Real (BRL)");
         System.out.println("2 - Dolar (USD)");
         System.out.println("3 - Euro (EUR)");
         System.out.print("Escolha o tipo de moeda: ");
         
-        int tipoMoeda = scanner.nextInt();
+        int tipo = entrada.nextInt();
         
         System.out.print("Digite o valor: ");
-        double valor = scanner.nextDouble();
+        double valor = entrada.nextDouble();
         
-        // Crio a moeda pra poder buscar e remover
+        // Cria uma moeda "placeholder" apenas para informar o tipo e valor a remover
         Moeda moeda = null;
-        
-        switch (tipoMoeda) {
+        switch (tipo) {
             case 1:
                 moeda = new Real(valor);
                 break;
@@ -132,7 +124,7 @@ public class Principal {
                 return;
         }
         
-        // Removo a moeda do cofrinho
+        // Pede para o cofrinho remover o valor informado
         cofrinho.remover(moeda);
     }
 }

@@ -2,7 +2,7 @@ package cofrinho;
 
 // Classe base pra todas as moedas
 // Fiz ela abstrata porque nao faz sentido criar uma moeda generica
-public abstract class Moeda {
+public abstract class Moeda { // modelo base para outras moedas
     
     // Guardei o valor como protected pra poder usar nas classes filhas
     protected double valor;
@@ -20,7 +20,7 @@ public abstract class Moeda {
     // Cada moeda tem sua cotacao
     public abstract double converterParaReal();
     
-    // Getter simples pro valor
+    // Pega o valor atual da moeda
     public double getValor() {
         return valor;
     }
