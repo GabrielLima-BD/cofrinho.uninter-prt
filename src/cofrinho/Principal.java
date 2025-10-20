@@ -16,7 +16,7 @@ public class Principal {
         // Controla o loop do menu
         int opcao = 0;
         
-        // Loop principal do programa (sai quando opcao = 5)
+    // Loop principal do programa (sai quando opcao = 5)
         while (opcao != 5) {
             
             // Menu simples
@@ -30,8 +30,8 @@ public class Principal {
             System.out.println("5 - Sair");
             System.out.print("\nEscolha uma opcao: ");
             
-            // Le a opcao do usuario (somente numero inteiro)
-            opcao = entrada.nextInt();
+            // Le a opcao do usuario de forma segura (evita erro quando digitam letras)
+            opcao = lerInteiro(entrada);
             
             // Faz o que o usuario escolheu
             switch (opcao) {
@@ -66,12 +66,11 @@ public class Principal {
         System.out.println("1 - Real (BRL)");
         System.out.println("2 - Dolar (USD)");
         System.out.println("3 - Euro (EUR)");
-        System.out.print("Escolha o tipo de moeda: ");
+    System.out.print("Escolha o tipo de moeda: ");
+    int tipo = lerInteiro(entrada);
         
-        int tipo = entrada.nextInt();
-        
-        System.out.print("Digite o valor: ");
-        double valor = entrada.nextDouble();
+    System.out.print("Digite o valor: ");
+    double valor = lerDecimal(entrada);
         
         // Cria a moeda de acordo com o tipo selecionado
         Moeda moeda = null;
@@ -100,12 +99,11 @@ public class Principal {
         System.out.println("1 - Real (BRL)");
         System.out.println("2 - Dolar (USD)");
         System.out.println("3 - Euro (EUR)");
-        System.out.print("Escolha o tipo de moeda: ");
+    System.out.print("Escolha o tipo de moeda: ");
+    int tipo = lerInteiro(entrada);
         
-        int tipo = entrada.nextInt();
-        
-        System.out.print("Digite o valor: ");
-        double valor = entrada.nextDouble();
+    System.out.print("Digite o valor: ");
+    double valor = lerDecimal(entrada);
         
         // Cria uma moeda "placeholder" apenas para informar o tipo e valor a remover
         Moeda moeda = null;
@@ -126,5 +124,29 @@ public class Principal {
         
         // Pede para o cofrinho remover o valor informado
         cofrinho.remover(moeda);
+    }
+
+    // Lê um numero inteiro do console, repetindo enquanto nao for valido
+    private static int lerInteiro(Scanner entrada) {
+        while (true) {
+            String linha = entrada.nextLine().trim();
+            try {
+                return Integer.parseInt(linha);
+            } catch (Exception e) {
+                System.out.print("Digite um numero inteiro valido: ");
+            }
+        }
+    }
+
+    // Lê um numero decimal (aceita virgula ou ponto), repetindo enquanto nao for valido
+    private static double lerDecimal(Scanner entrada) {
+        while (true) {
+            String linha = entrada.nextLine().trim().replace(',', '.');
+            try {
+                return Double.parseDouble(linha);
+            } catch (Exception e) {
+                System.out.print("Digite um valor numerico valido: ");
+            }
+        }
     }
 }

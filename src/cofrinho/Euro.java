@@ -11,10 +11,10 @@ public class Euro extends Moeda { // representa valores em euro
         super(valor);
     }
     
-    // Mostra as informacoes do Euro (o simbolo pode aparecer diferente em alguns consoles)
+    // Mostra as informacoes do Euro (sem usar simbolo para evitar erro de encoding no console)
     @Override
     public void info() {
-        System.out.println("Euro (EUR): € " + String.format("%.2f", valor));
+        System.out.println("Euro (EUR): EUR " + String.format("%.2f", valor));
     }
     
     // Converte o valor em euro pra Real multiplicando pela cotacao
